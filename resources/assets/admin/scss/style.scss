@@ -10,3 +10,21 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.flex {
+    display: flex;
+}
+
+.justify-right {
+    justify-content: flex-end;
+}
+
+.align-center {
+    align-items: center;
+}
+
+@each $gap in (5, 10, 15, 20) {
+    .gap-#{$gap} {
+        gap: #{$gap}px;
+    }
+}

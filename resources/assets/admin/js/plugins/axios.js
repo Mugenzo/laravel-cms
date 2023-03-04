@@ -1,8 +1,13 @@
 import axios from 'axios'
 
-const instance = axios.create({
+const $axios = axios.create({
     baseURL: '/api/',
-    headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')}
+    headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        ContentType: 'application/json',
+        Accept: 'application/json'
+    },
+    withCredentials: true
 });
 
-export default instance;
+export default $axios;

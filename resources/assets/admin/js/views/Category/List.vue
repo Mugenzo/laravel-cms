@@ -1,7 +1,10 @@
 <template>
     <el-row justify="space-between" align="middle">
-        <el-col span="12"><h3>Categories</h3></el-col>
-        <el-col span="12">
+        <el-col :span="12" class="flex gap-15 align-center">
+            <h3>Categories</h3>
+            <el-button type="primary" @click.prevent="createDrawer = true">Add new</el-button>
+        </el-col>
+        <el-col :span="12" class="flex justify-right">
             <el-pagination
                 v-model:current-page="currentPage"
                 v-model:page-size="pageSize"
@@ -31,13 +34,26 @@
             </template>
         </el-table-column>
     </el-table>
+
+    <el-drawer
+        v-model="createDrawer"
+        title="Create category"
+        :before-close="handleCreateClose"
+        :destroy-on-close="true"
+        size="50%"
+    >
+        <create @close="createDrawer = false"/>
+    </el-drawer>
 </template>
 
 <script setup>
 import {ref, onMounted} from "vue";
-import axios from "../../plugins/axios";
+import $axios from '../../plugins/axios'
+import Create from "./Create.vue";
 
 const search = ref("")
+
+const records = ref([])
 const currentPage = ref(1);
 const pageSize = ref(20)
 const total = ref(0)
@@ -47,18 +63,25 @@ const handleSizeChange = () => {
 const handleCurrentChange = () => {
 }
 
-const records = ref([])
-
 const getRecords = () => {
-    axios.get(`/categories?page=${currentPage.value}&per-page=${pageSize.value}`)
+    $axios.get(`/categories?page=${currentPage.value}&per-page=${pageSize.value}`)
         .then((res) => {
-            console.log(res)
+            records.value = res.data.data;
+            total.value = res.data.meta.total;
         })
 }
 
 onMounted(() => {
     getRecords();
 })
+
+const createDrawer = ref(false)
+const handleCreateClose = (done) => {
+    ElMessageBox.confirm('Are you sure you want to close this?')
+        .then(() => {
+            done()
+        })
+}
 </script>
 
 <style scoped>

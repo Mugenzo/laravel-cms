@@ -22,7 +22,7 @@ class CategoryController extends Controller
         return CategoryResource::collection(
             Category::query()
                 ->orderBy('created_at')
-                ->paginate($request->has('per_page') ? $request->get('per_page') : setting('per_page'))
+                ->paginate($request->has('per-page') ? $request->get('per-page') : setting('per-page'))
         );
     }
 
