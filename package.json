@@ -8,5 +8,14 @@
         "axios": "^1.1.2",
         "laravel-vite-plugin": "^0.7.2",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "@vitejs/plugin-vue": "^4.0.0",
+        "element-plus": "^2.2.33",
+        "sass": "^1.58.3",
+        "unplugin-auto-import": "^0.15.0",
+        "unplugin-vue-components": "^0.24.0",
+        "vue": "^3.2.47",
+        "vue-router": "^4.1.6"
     }
 }
