@@ -3,7 +3,7 @@
         <el-row>
             <el-col :span="17">
                 <el-form-item label="Title">
-                    <el-input v-model="form.title" autocomplete="off"/>
+                    <el-input v-model="form.title" autocomplete="off" required/>
                 </el-form-item>
                 <el-form-item label="Slug">
                     <el-input v-model="form.slug" autocomplete="off"/>

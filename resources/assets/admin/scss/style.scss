@@ -28,3 +28,52 @@ body {
         gap: #{$gap}px;
     }
 }
+
+.media-img-preview {
+    .el-card__body {
+        padding: 0;
+        aspect-ratio: 1/1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        .action-buttons {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .el-image {
+            .preloader {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                .el-icon {
+                    animation: loading-rotate 2s linear infinite;
+                }
+            }
+        }
+
+        &:hover {
+            img {
+                filter: blur(5px);
+            }
+
+            .action-buttons {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}

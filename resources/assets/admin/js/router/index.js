@@ -25,7 +25,7 @@ const routes = [
                 component: () => import('../views/Media/Index.vue'),
                 children: [
                     {
-                        name: 'categories',
+                        name: 'media',
                         path: '',
                         component: () => import('../views/Media/List.vue'),
                     }

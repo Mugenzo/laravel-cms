@@ -2,25 +2,31 @@
     <el-menu :router="true">
         <el-menu-item index="users">
             <el-icon>
-                <icon-menu/>
+                <User/>
             </el-icon>
             <span>Users</span>
         </el-menu-item>
+        <el-menu-item index="media">
+            <el-icon>
+                <Picture/>
+            </el-icon>
+            <span>Media</span>
+        </el-menu-item>
         <el-menu-item index="posts">
             <el-icon>
-                <document/>
+                <Document/>
             </el-icon>
             <span>Posts</span>
         </el-menu-item>
         <el-menu-item index="categories">
             <el-icon>
-                <setting/>
+                <Collection/>
             </el-icon>
             <span>Categories</span>
         </el-menu-item>
         <el-menu-item index="tags">
             <el-icon>
-                <setting/>
+                <CollectionTag/>
             </el-icon>
             <span>Tags</span>
         </el-menu-item>
@@ -29,10 +35,11 @@
 
 <script lang="ts" setup>
 import {
+    User,
+    Picture,
     Document,
-    Menu as IconMenu,
-    Location,
-    Setting,
+    Collection,
+    CollectionTag
 } from '@element-plus/icons-vue'
 </script>
 
