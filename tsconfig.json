@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ESNext",
+        "sourceMap": true,
+        "paths": {
+            "@/*": [
+                "./resources/assets/*"
+            ]
+        }
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

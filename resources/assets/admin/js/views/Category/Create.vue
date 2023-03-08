@@ -9,7 +9,9 @@
                     <el-input v-model="form.slug" autocomplete="off"/>
                 </el-form-item>
             </el-col>
-            <el-col :span="7"></el-col>
+            <el-col :span="7">
+                <SingleFileSelect :file="13" @selected="setMedia"/>
+            </el-col>
         </el-row>
 
         <el-form-item label="Description">
@@ -17,17 +19,17 @@
         </el-form-item>
         <el-form-item>
             <el-button @click="cancelForm">Cancel</el-button>
-            <el-button type="primary" :loading="loading" @click="store">{{
-                    loading ? 'Creating ...' : 'Create'
-                }}
+            <el-button type="primary" :loading="loading" @click="store">
+                {{ loading ? 'Creating ...' : 'Create' }}
             </el-button>
         </el-form-item>
     </el-form>
 </template>
 
 <script setup>
-import {ref, defineEmits} from "vue";
-import $axios from "../../plugins/axios";
+import {ref} from "vue";
+import $axios from "@/admin/js/plugins/axios";
+import SingleFileSelect from "../Media/Partials/SingleFileSelect.vue";
 
 const emit = defineEmits(['close', 'getRecords'])
 
@@ -35,11 +37,16 @@ const formLabelWidth = 120;
 const form = ref({
     title: '',
     slug: '',
-    description: ''
+    description: '',
+    media_id: null
 })
 const loading = ref(false)
 const cancelForm = () => {
     emit('close')
+}
+
+const setMedia = (media_id) => {
+    form.value.media_id = media_id
 }
 
 const store = () => {
@@ -50,6 +57,4 @@ const store = () => {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

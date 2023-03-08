@@ -7,19 +7,15 @@
             </el-button>
         </el-col>
         <el-col :span="12" class="flex justify-right">
-            <el-pagination
-                v-model:current-page="currentPage"
-                v-model:page-size="pageSize"
-                :page-sizes="[20, 50, 100, 200, 300, 400]"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="total"
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-            />
+            <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize"
+                           :page-sizes="[32, 64, 128, 256]"
+                           layout="total, sizes, prev, pager, next, jumper" :total="total"
+                           @size-change="handleSizeChange"
+                           @current-change="handleCurrentChange"/>
         </el-col>
     </el-row>
     <div class="media-grid">
-        <el-card class="media-img-preview" v-for="({id, file_url, title, alt}) in records" :key="`media_${id}`">
+        <el-card class="media-img-preview" v-for="({ id, file_url, title, alt }) in records" :key="`media_${id}`">
             <el-image :src="file_url" :alt="alt" :title="title" style="width: 100%; height: 100%" fit="cover"
                       loading="eager">
                 <template #placeholder>
@@ -31,8 +27,13 @@
                 </template>
             </el-image>
             <div class="action-buttons">
-                <el-button :icon="Edit" circle type="primary"/>
-                <el-button :icon="Delete" circle type="danger"/>
+                <template v-if="select">
+                    <el-button :icon="Check" circle type="primary" @click="emitSelected({ id, file_url })"/>
+                </template>
+                <template v-else>
+                    <el-button :icon="Edit" circle type="primary"/>
+                    <el-button :icon="Delete" circle type="danger"/>
+                </template>
             </div>
         </el-card>
     </div>
@@ -41,26 +42,39 @@
     </el-dialog>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {ref, onMounted} from "vue";
-import {Loading, Edit, Delete} from '@element-plus/icons-vue'
+import {Loading, Check, Edit, Delete} from '@element-plus/icons-vue'
 import UploadComponent from "./Partials/UploadComponent.vue";
-import $axios from '@/admin/js/plugins/axios'
+import $axios from "@/admin/js/plugins/axios";
 
-const uploadComponentDialog = ref(false)
+defineProps({
+    select: {
+        type: Boolean,
+        default: false
+    }
+})
+
+const emit = defineEmits(['selected'])
+
+const uploadComponentDialog = ref<boolean>(false)
 
 const records = ref([])
-const currentPage = ref(1);
-const pageSize = ref(20)
-const total = ref(0)
+const currentPage = ref<number>(1);
+const pageSize = ref<number>(32)
+const total = ref<number>(0)
 
 onMounted(() => {
     getRecords()
 })
 
-const handleSizeChange = () => {
+const handleSizeChange = (size: number) => {
+    pageSize.value = size;
+    getRecords();
 }
-const handleCurrentChange = () => {
+const handleCurrentChange = (page: number) => {
+    currentPage.value = page;
+    getRecords();
 }
 
 const getRecords = () => {
@@ -77,6 +91,10 @@ const getRecords = () => {
 const loadOnUploaded = () => {
     uploadComponentDialog.value = false;
     getRecords()
+}
+
+const emitSelected = (file) => {
+    emit('selected', file)
 }
 </script>
 
@@ -101,6 +119,4 @@ const loadOnUploaded = () => {
         }
     }
 }
-
-
 </style>

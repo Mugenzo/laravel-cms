@@ -1,9 +1,8 @@
 <template>
-    <el-upload drag multiple class="upload-demo" action="/api/media" method="post"
-               :with-credentials="true" :headers="headers" :on-success="successUpload"
-               :on-error="errorUpload">
+    <el-upload drag multiple class="upload-demo" action="/api/media" method="post" :with-credentials="true"
+        :headers="headers" :on-success="successUpload" :on-error="errorUpload" :accept="accepts">
         <el-icon class="el-icon--upload">
-            <upload-filled/>
+            <upload-filled />
         </el-icon>
         <div class="el-upload__text">
             Drop file here or <em>click to upload</em>
@@ -17,11 +16,12 @@
 </template>
 
 <script setup lang="ts">
-import {defineEmits} from 'vue'
-import {UploadFilled} from '@element-plus/icons-vue'
-import {ElNotification} from 'element-plus'
+import { UploadFilled } from '@element-plus/icons-vue'
+import { ElNotification } from 'element-plus'
 
 const emits = defineEmits(['uploaded'])
+
+const accepts = import.meta.env.CMS_UPLOAD_TYPES;
 
 const headers = {
     'Accept': 'application/json',
@@ -46,6 +46,9 @@ const errorUpload = (error) => {
 }
 </script>
 
-<style scoped>
+<script lang="ts">
+export default {
+}
+</script>
 
-</style>
+<style scoped></style>

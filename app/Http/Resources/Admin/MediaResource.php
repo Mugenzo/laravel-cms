@@ -16,7 +16,7 @@ class MediaResource extends JsonResource
     public function toArray(Request $request): array
     {
         return array_merge(parent::toArray($request), [
-            'file_url' => "/storage/uploads/{$this->filename}"
+            'file_url' => $this->getImageSize('small')
         ]);
     }
 }

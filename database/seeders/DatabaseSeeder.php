@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,6 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Storage::disk('public')->deleteDirectory('uploads');
+
         \App\Models\User::create([
             'name' => 'Admin',
             'email' => 'admin@app.com',
@@ -19,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'admin' => 1
         ]);
 
-        foreach (config('cms') as $key => $value):
+        foreach (config('cms.defaults') as $key => $value):
             \App\Models\Setting::create([
                 'key' => $key,
                 'value' => $value

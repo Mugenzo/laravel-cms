@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('title')->nullable();
             $table->string('alt')->nullable();
             $table->string('mime_type');
+            $table->text('sizes')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
