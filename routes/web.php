@@ -13,21 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', fn() => view('hello'));
 
-Route::group(['middleware' => 'guest'], function () {
-    Route::get('login', [\App\Http\Controllers\Auth\LoginController::class, 'show'])->name('login');
-    Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'store']);
-});
-
-Route::middleware('auth')->group(function () {
-    Route::delete('login', [\App\Http\Controllers\Auth\LoginController::class, 'destroy'])->name('logout');
-
-    Route::middleware('isAdmin')->group(function () {
-        Route::get('admin/{any?}', fn() => view('admin.spa'))
-            ->where('any', '.*')
-            ->name('dashboard');
-    });
-});
+Route::get('admin/{any?}', fn() => view('spa'))
+    ->where('any', '.*');
